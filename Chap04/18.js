@@ -3,15 +3,17 @@ const readline = require('readline');
 
 //メイン処理
 const main = async () => {
-    let MinHeight = await prompt('何cmから:');
-    let MaxHeight = await prompt('何cmまで:');
-    let interval = await prompt('何cmごと:');
-    let standardWeight = 0;
-    console.log('身長    標準体重');
-    console.log('---------------');
-    for(let i = MinHeight; i <= MaxHeight; i += interval){
-        standardWeight = (i - 100) * 0.9;
-        console.log(`${i}    ${standardWeight.toFixed(1)}`);
+    let promptInt = await prompt('整数値:');
+    let count = 0;
+    if(promptInt > 0){
+        for(let i = 1; i <= promptInt; i ++){
+            if(promptInt % i == 0){
+                process.stdout.write(`${i} `);
+                count++;
+            }
+        }
+        console.log('');
+        console.log(`約数は${count}個です。`);
     }
 };
 

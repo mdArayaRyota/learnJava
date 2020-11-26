@@ -3,15 +3,20 @@ const readline = require('readline');
 
 //メイン処理
 const main = async () => {
-    let MinHeight = await prompt('何cmから:');
-    let MaxHeight = await prompt('何cmまで:');
-    let interval = await prompt('何cmごと:');
-    let standardWeight = 0;
-    console.log('身長    標準体重');
-    console.log('---------------');
-    for(let i = MinHeight; i <= MaxHeight; i += interval){
-        standardWeight = (i - 100) * 0.9;
-        console.log(`${i}    ${standardWeight.toFixed(1)}`);
+    let displayCount = await prompt('何個*を表示しますか:');
+    if(displayCount > 0){
+        for(let i = 0; i < displayCount; i ++){
+            process.stdout.write('*');
+            //iの値が4,14,19のときに改行する
+            if(i % 5 == 4){
+                process.stdout.write('*');
+                console.log('');
+            }
+        }
+        //displayCountが5の倍数でなければ、*に改行付いてないので付ける
+        if(displayCount % 5 != 0){
+            console.log('');
+        }
     }
 };
 
