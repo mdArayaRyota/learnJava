@@ -4,17 +4,22 @@ const readline = require('readline');
 //メイン処理
 const main = async () => {
     let promptInt;
-    let height = await prompt('身長:');
-    let weight = await prompt('体重:');
+    let MinHeight = await prompt('何cmから:');
+    let MaxHeight = await prompt('何cmまで:');
     let interval = await prompt('何cmごと:');
-
-    
+    let standardWeight = 0;
+    console.log('身長    標準体重');
+    console.log('---------------');
+    for(let i = MinHeight; i <= MaxHeight; i += interval){
+        standardWeight = (i - 100) * 0.9;
+        console.log(`${i}    ${standardWeight.toFixed(1)}`);
+    }
 };
 
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
-    return answer;
+    return parseInt(answer);
 };
 
 //標準入力
