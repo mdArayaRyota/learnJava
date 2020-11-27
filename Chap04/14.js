@@ -1,4 +1,5 @@
-//12
+//14 1からnまでの和を求める
+
 const readline = require('readline');
 
 //メイン処理

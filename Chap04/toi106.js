@@ -1,24 +1,30 @@
-//17.読み込んだ数*を表示させて、5個表示するごとに改行する
+//toi106(動作確認未)
 
 const readline = require('readline');
 
 //メイン処理
 const main = async () => {
-    let displayCount = await prompt('何個*を表示しますか:');
-    if(displayCount > 0){
-        for(let i = 0; i < displayCount; i++){
-            process.stdout.write('*');
-            //iの値が4,14,19のときに改行する
-            if(i % 5 == 4){
-                process.stdout.write('*');
-                console.log('');
-            }
+
+    const n = await prompt('何個*を表示する。：');
+    const w = await prompt('横は何個まで表示する。：');
+
+    let p = n / w;
+    let q = n % w;
+
+    for(let i = 1; i <= p; i++){
+        for(let j = 1; j <= w; j++){
+            console.log('+');
+            console.log('');
         }
-        //displayCountが5の倍数でなければ、*に改行付いてないので付ける
-        if(displayCount % 5 != 0){
+        if(i % 3 == 0 && (i < p || q != 0)){
             console.log('');
         }
     }
+    for(let i = 1; i <= q; i++){
+        console.log('+');
+    }
+    if(q != 0)console.log('');
+
 };
 
 //入力処理
@@ -41,6 +47,11 @@ const question = (question) => {
         });
     });
 };
+
+//ランダムな整数生成
+const randomInteger = () =>{
+    return Math.floor( Math.random()*100);
+}
 
 // 起動
 (async () => {

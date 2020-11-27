@@ -1,7 +1,8 @@
+//4.２つの数を読み込み、小さい方の数以上で大きい方の数以下の全整数を小さい方から並べる
+
 const readline = require('readline');
 
 //メイン処理
-let endFlg = 0;
 const main = async () => {
     let a = await prompt('整数A:');
     let b = await prompt('整数B:');
@@ -15,9 +16,10 @@ const main = async () => {
         b = c;
     }
     while (a <= b) {
-        process.stdout.write(`${a},`);
+        process.stdout.write(`${a} `);
         a = a + 1;
     }
+    console.log('');
 };
 
 //入力処理

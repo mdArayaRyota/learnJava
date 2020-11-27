@@ -1,27 +1,24 @@
-//15.足し算風に書く
+//toi118.入力した面積になる縦と横の長さの組み合わせ表示
 
 const readline = require('readline');
 
 //メイン処理
 const main = async () => {
-    let promptInt;
-    console.log('1からnまでの和を求めます。');
-    promptInt = await prompt('正の整数値:');
-    if(promptInt >= 1){
-        let sum = 0;
-        for(let i=1; i <= promptInt; i++){
-            process.stdout.write(`${i}`);
-            if(i != promptInt)process.stdout.write(' + ');
-            sum += i;
-        }
-        console.log(` = ${sum}`);
+
+    const a = await prompt('面積：');
+
+    for(let i = 1; i < a; i++){
+        if(i * i > a)break;
+        if(a % i != 0)continue;
+        console.log(`縦 ${i} * 横 ${a / i}`);
     }
+
 };
 
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
-    return answer;
+    return parseInt(answer);
 };
 
 //標準入力
@@ -38,6 +35,11 @@ const question = (question) => {
         });
     });
 };
+
+//ランダムな整数生成
+const randomInteger = () =>{
+    return Math.floor( Math.random()*100);
+}
 
 // 起動
 (async () => {

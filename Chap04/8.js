@@ -1,4 +1,5 @@
-//1
+//8 読み込んだ値の個数だけ記号文字(*と+)を交互に表示する
+
 const readline = require('readline');
 
 //メイン処理
@@ -16,6 +17,7 @@ const main = async () => {
             }
             promptInt--;
         }
+        console.log('');
     }
 };
 

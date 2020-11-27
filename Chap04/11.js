@@ -1,4 +1,5 @@
-//11
+//11 入力した分だけ*を表示する
+
 const readline = require('readline');
 
 //メイン処理

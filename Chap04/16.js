@@ -1,4 +1,5 @@
-//16
+//16.身長と体重の対応表を表示させる。
+
 const readline = require('readline');
 
 //メイン処理

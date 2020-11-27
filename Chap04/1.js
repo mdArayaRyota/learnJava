@@ -1,4 +1,5 @@
-//1
+//1.読み込んだ値の符号を判定して表示する
+
 const readline = require('readline');
 
 //メイン処理

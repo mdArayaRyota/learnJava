@@ -1,10 +1,11 @@
+//3.数あてゲーム
+
 const readline = require('readline');
 
 //メイン処理
-let endFlg = 0;
 const main = async () => {
+    let endFlg = 0;
     const randomInt = await randomInteger();
-    console.log(randomInt);
     while (endFlg == 0) {
         const answer = await prompt('いくつかな:');
         if(randomInt > answer){

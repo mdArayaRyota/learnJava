@@ -1,27 +1,35 @@
-//15.足し算風に書く
+//24.正の整数値を読み込み素数かどうかチェック
 
 const readline = require('readline');
 
 //メイン処理
 const main = async () => {
     let promptInt;
-    console.log('1からnまでの和を求めます。');
-    promptInt = await prompt('正の整数値:');
-    if(promptInt >= 1){
-        let sum = 0;
-        for(let i=1; i <= promptInt; i++){
-            process.stdout.write(`${i}`);
-            if(i != promptInt)process.stdout.write(' + ');
-            sum += i;
+    let i;
+    //2以上の整数でなければループ
+    do{
+        promptInt = await prompt('2以上の整数値：');
+    }while(promptInt < 2);
+
+    //2〜promptInt-1で割り切れるか確認
+    for(i = 2; i < promptInt; i++){
+        if(promptInt % i == 0){
+            break;
         }
-        console.log(` = ${sum}`);
     }
+    //最後まで割り切れなかったら素数
+    if(i == promptInt){
+        console.log('それは素数です。');
+    }else{
+        console.log('それは素数ではありません。');
+    }
+
 };
 
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
-    return answer;
+    return parseInt(answer);
 };
 
 //標準入力

@@ -1,27 +1,27 @@
-//15.足し算風に書く
+//23.*を並べてn段のピラミッドを作る
 
 const readline = require('readline');
 
 //メイン処理
 const main = async () => {
-    let promptInt;
-    console.log('1からnまでの和を求めます。');
-    promptInt = await prompt('正の整数値:');
-    if(promptInt >= 1){
-        let sum = 0;
-        for(let i=1; i <= promptInt; i++){
-            process.stdout.write(`${i}`);
-            if(i != promptInt)process.stdout.write(' + ');
-            sum += i;
+    console.log('ピラミッドを表示します。');
+    let steps = await prompt('段数は：');
+    for(let i = 1; i <= steps; i++){
+        for(let j = 1; j <= steps - i; j++){
+            process.stdout.write(' ');
         }
-        console.log(` = ${sum}`);
+        for(let j = 1; j <= 2 * i - 1; j++){
+            process.stdout.write(`${i % 10}`);
+        }
+        console.log('');
     }
+
 };
 
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
-    return answer;
+    return parseInt(answer);
 };
 
 //標準入力

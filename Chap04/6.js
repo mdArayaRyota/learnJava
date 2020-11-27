@@ -1,20 +1,24 @@
-//1
+//6 入力した正の整数値から0までのカウントダウンを表示。(--promptInt)
+
 const readline = require('readline');
 
 //メイン処理
 let endFlg = 0;
 const main = async () => {
     let promptInt;
+    //入力値が正の整数でなければループ
     while (endFlg == 0) {
     promptInt = await prompt('正の整数値:');
         if(promptInt > 0){
             endFlg = 1;
         }
     }
+    //promptIntが0になるまで繰り返す
     while(promptInt >= 0){
-        process.stdout.write(`${promptInt},`);
-        --promptInt;
+        //5との変化点
+        console.log(`${--promptInt}`);
     }
+    console.log('');
 };
 
 //入力処理

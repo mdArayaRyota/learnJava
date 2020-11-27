@@ -1,4 +1,5 @@
-//16
+//18.読み込んだ整数値のすべての約数と、その個数を表示させる
+
 const readline = require('readline');
 
 //メイン処理
@@ -6,7 +7,7 @@ const main = async () => {
     let promptInt = await prompt('整数値:');
     let count = 0;
     if(promptInt > 0){
-        for(let i = 1; i <= promptInt; i ++){
+        for(let i = 1; i <= promptInt; i++){
             if(promptInt % i == 0){
                 process.stdout.write(`${i} `);
                 count++;

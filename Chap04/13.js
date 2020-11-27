@@ -1,4 +1,4 @@
-//13
+//13 0から入力値までカウントアップ
 const readline = require('readline');
 
 //メイン処理

@@ -1,4 +1,5 @@
-//1
+//9 正の整数値を読み込み桁数を出力
+
 const readline = require('readline');
 
 //メイン処理

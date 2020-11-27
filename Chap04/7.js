@@ -1,4 +1,5 @@
-//1
+//7 入力した値の個数*を表示する(1未満であれば改行しない)
+
 const readline = require('readline');
 
 //メイン処理
@@ -6,11 +7,12 @@ let endFlg = 0;
 const main = async () => {
     let promptInt;
     promptInt = await prompt('何個*を表示しますか:');
-    if(promptInt >= 1){
+    if(promptInt > 0){
         while(promptInt > 0){
             process.stdout.write('*');
             promptInt--;
         }
+        console.log('');
     }
 };
 

@@ -1,4 +1,5 @@
-//12
+//13 入力値から0までカウントダウン
+
 const readline = require('readline');
 
 //メイン処理

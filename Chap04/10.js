@@ -1,4 +1,5 @@
-//10
+//10 正の整数値nを読み込み、1からnまでの積を求める
+
 const readline = require('readline');
 
 //メイン処理
