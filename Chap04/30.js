@@ -10,7 +10,7 @@ const main = async () => {
     const MAX_ANSWER_NUM = 6;
     let answerNum = MAX_ANSWER_NUM;
     //ランダム数を設定
-    const randomInt = await randomInteger();
+    const randomInt = randomInteger();
     console.log('数当てゲーム開始！！');
     console.log('0〜99の数を当ててください。');
 

@@ -1,17 +1,25 @@
-//toi115(動作確認未)
+//10.全要素を1〜10の乱数で埋め尽くす
 
 const readline = require('readline');
 
 //メイン処理
 const main = async () => {
 
-    const height = await prompt('何行：');
-    const width = await prompt('何列');
+    let elementCount;
+    do{
+        elementCount = await prompt('要素数:');
+    }while(elementCount < 1);
 
-    for(let i = 1; i <= height; i++){
-        for(let j = 1; j <= width; j++){
-            console.log((i + j -1) % 10);
-        }
+    let points = new Array(elementCount);
+
+    //配列に乱数を代入
+    for(let i = 0; i < elementCount; i++){
+        points[i] = randomInteger();
+    }
+
+    //表示
+    for(let i = 0; i < elementCount; i++){
+        console.log(`a[${i}] = ${points[i]}`);
     }
 
 };
@@ -37,6 +45,10 @@ const question = (question) => {
     });
 };
 
+//ランダムな整数生成
+const randomInteger = () =>{
+    return Math.floor( Math.random()*10);
+}
 
 // 起動
 (async () => {

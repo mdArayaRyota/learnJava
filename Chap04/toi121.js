@@ -42,11 +42,6 @@ const question = (question) => {
     });
 };
 
-//ランダムな整数生成
-const randomInteger = () =>{
-    return Math.floor( Math.random()*100);
-}
-
 // 起動
 (async () => {
     await main();
