@@ -1,47 +1,34 @@
-//20.配列aの要素a[idx]にxを挿入するメソッドaryInsを作成
-//
-
+//24.配列aから要素a[idx]を削除するメソッド
 //-----------------------------------------------------------------------------------------------
 //キーボード入力
 const readline = require('readline');
-
 //メイン処理
 const main = async () => {
-
     let num = 0;
     do{
         num = await prompt('要素数：');
     }while(num <= 0);
-
-    let a = new Array(num);
-
+    let aryX = new Array(num);
     for(let i = 0; i < num; i ++){
-        a[i] = await prompt(`a[${i}]: `);
+        aryX[i] = await prompt(`x[${i}]: `);
     }
-    let insertIndex = await prompt('挿入する要素のインデックス：');
-    let insertNum = await prompt('挿入する値：');
-
-    //aryRmv(元array, 削除開始index, 削除数)
-    aryIns(a, insertIndex, insertNum);
-    for(let i = 0; i < num; i++){
-        console.log(`a[${i}] = ${a[i]}`);
+    let idx = await prompt('削除する要素のインデックス：');
+    let aryY = aryRmvOf(aryX, idx);
+    for(let i = 0; i < aryY.length; i++){
+        console.log(`y[${i}] ${aryY[i]}`);
     }
-
 };
-
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
     return parseInt(answer);
 };
-
 //標準入力
 const question = (question) => {
     const readlineInterface = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
-
     return new Promise((resolve) => {
         readlineInterface.question(question, (answer) => {
             resolve(answer);
@@ -49,18 +36,19 @@ const question = (question) => {
         });
     });
 };
-
-const aryIns = (a, insertIndex, insertNum) => {
-    if(insertIndex >= 0 && insertIndex <a.length){
-        for(let i = a.length - 1; i > insertIndex; i --){
-            a[i] = a[i -1];
-        }
-        a[insertIndex] = insertNum;
+//削除メソッド
+const aryRmvOf = (arrayX, idx) => {
+    if(idx < 0 || idx >= arrayX.length - 1)return arrayX.concat();
+    let arrayY = new Array(arrayX.length - 1);
+    let i = 0;
+    for(i; i < idx; i++){
+        arrayY[i] = arrayX[i];
     }
+    for(i; i < arrayY.length; i++){
+        arrayY[i] = arrayX[i + 1];
+    }
+    return arrayY;
 }
-
-
-
 // 起動
 (async () => {
     await main();

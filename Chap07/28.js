@@ -1,0 +1,97 @@
+//28.行列xとyの和を求めてzに格納するメソッド
+
+//-----------------------------------------------------------------------------------------------
+//キーボード入力
+const readline = require('readline');
+
+//メイン処理
+const main = async () => {
+
+    let height = 0;
+    do{
+        height = await prompt('行列の行数：');
+    }while(height <= 0);
+    let width = 0;
+    do{
+        width = await prompt('行列の列数：');
+    }while(width <= 0);
+
+    let a;
+    let x = aryInit(a, width, height);
+    let b;
+    let y = aryInit(b, width, height);
+    let c;
+    let z = aryInit(c, width, height);
+
+    for(let i = 0; i < x.length; i++){
+        for(let j = 0; j < x[i].length; j++){
+            x[i][j] = await prompt(`a[${i}][${j}]:`);
+        }
+    }
+    for(let i = 0; i < y.length; i++){
+        for(let j = 0; j < y[i].length; j++){
+            y[i][j] = await prompt(`a[${i}][${j}]:`);
+        }
+    }
+    console.log('行列a');
+    printMatrix(x);
+    console.log('行列b');
+    printMatrix(y);
+    console.log('行列c');
+    z = addMatrix(x, y, z);
+    printMatrix(z);
+
+};
+
+//入力処理
+const prompt = async (msg) => {
+    const answer = await question(msg);
+    return parseInt(answer);
+};
+
+//標準入力
+const question = (question) => {
+    const readlineInterface = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    return new Promise((resolve) => {
+        readlineInterface.question(question, (answer) => {
+            resolve(answer);
+            readlineInterface.close();
+        });
+    });
+};
+
+//配列初期化
+const aryInit = (ary, width, height) =>{
+    ary = [...Array(width)].map(() => Array(height).fill(0));
+    return ary;
+}
+
+//行列xと行列yの和
+const addMatrix = (x, y, z) => {
+    for(let i = 0; i < x.length; i++){
+        for(let j = 0; j < x[0].length; j++){
+            z[i][j] = x[i][j] + y[i][j];
+        }
+    }
+    return z;
+}
+//ログ出力
+const printMatrix = (m) => {
+    for(let i = 0; i < m.length; i++){
+        for(let j = 0; j < m[i].length; j++){
+            process.stdout.write(`${m[i][j]}    `);
+        }
+        console.log('');
+    }
+    console.log('');
+}
+
+
+// 起動
+(async () => {
+    await main();
+})();

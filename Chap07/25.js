@@ -1,4 +1,4 @@
-//20.配列aの要素a[idx]にxを挿入するメソッドaryInsを作成
+//25.配列aから要素a[idx]を削除するメソッド
 //
 
 //-----------------------------------------------------------------------------------------------
@@ -18,14 +18,12 @@ const main = async () => {
     for(let i = 0; i < num; i ++){
         a[i] = await prompt(`a[${i}]: `);
     }
-    let insertIndex = await prompt('挿入する要素のインデックス：');
-    let insertNum = await prompt('挿入する値：');
+    let idx = await prompt('削除する開始インデックス：');
+    let n = await prompt('削除する要素の個数：');
 
-    //aryRmv(元array, 削除開始index, 削除数)
-    aryIns(a, insertIndex, insertNum);
-    for(let i = 0; i < num; i++){
-        console.log(`a[${i}] = ${a[i]}`);
-    }
+    //(元array, 削除開始index, 削除数)
+    aryRmvOfN(a, idx, n);
+    console.log(a);
 
 };
 
@@ -50,16 +48,23 @@ const question = (question) => {
     });
 };
 
-const aryIns = (a, insertIndex, insertNum) => {
-    if(insertIndex >= 0 && insertIndex <a.length){
-        for(let i = a.length - 1; i > insertIndex; i --){
-            a[i] = a[i -1];
-        }
-        a[insertIndex] = insertNum;
+//aryRmv(元array, 削除開始index, 削除数)
+const aryRmvOfN = (a, idx, n) => {
+    if(n < 0 || idx < 0 || idx > a.length) return a.concat();
+
+    if(idx + n > a.length){
+        n = a.length - idx;
+    }
+    let c = new Array(a.length - n);
+    let i = 0;
+    for(; i < idx; i++){
+        c[i] = a[i];
+    }
+    for(; i < a.length - n; i++){
+        c[i] = a[i + n];
+        return c;
     }
 }
-
-
 
 // 起動
 (async () => {

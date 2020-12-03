@@ -1,5 +1,4 @@
-//21.配列aと配列bの全要素を交換するaryExchange
-//
+//31.絶対値を返すメソッド
 
 //-----------------------------------------------------------------------------------------------
 //キーボード入力
@@ -8,7 +7,9 @@ const readline = require('readline');
 //メイン処理
 const main = async () => {
 
-    let 
+    //入力
+    let d = await prompt('double型の値：');
+    console.log(`dの絶対値は${absolute(d)}です。`);
 
 
 };
@@ -16,7 +17,7 @@ const main = async () => {
 //入力処理
 const prompt = async (msg) => {
     const answer = await question(msg);
-    return parseInt(answer);
+    return parseFloat(answer);
 };
 
 //標準入力
@@ -34,15 +35,9 @@ const question = (question) => {
     });
 };
 
-const aryExchange = (a, b) => {
-    let n = a.length < b.length ? a.length : b.length;
-    for(let i = 0; i < n; i++){
-        let temp = a[i];
-        a[i] = b[i];
-        b[i] = temp;
-    }
+const absolute = (d) => {
+    return d >= 0 ? d : -d;
 }
-
 
 
 // 起動

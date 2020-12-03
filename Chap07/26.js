@@ -1,4 +1,4 @@
-//20.配列aの要素a[idx]にxを挿入するメソッドaryInsを作成
+//26.配列aの要素a[idx]にxを挿入するメソッド
 //
 
 //-----------------------------------------------------------------------------------------------
@@ -21,10 +21,10 @@ const main = async () => {
     let insertIndex = await prompt('挿入する要素のインデックス：');
     let insertNum = await prompt('挿入する値：');
 
-    //aryRmv(元array, 削除開始index, 削除数)
-    aryIns(a, insertIndex, insertNum);
-    for(let i = 0; i < num; i++){
-        console.log(`a[${i}] = ${a[i]}`);
+    //aryRmvOf(元array, 削除開始index, 削除数)
+    let b = aryInsOf(a, insertIndex, insertNum);
+    for(let i = 0; i < b.length; i++){
+        console.log(`a[${i}] = ${b[i]}`);
     }
 
 };
@@ -50,13 +50,20 @@ const question = (question) => {
     });
 };
 
-const aryIns = (a, insertIndex, insertNum) => {
-    if(insertIndex >= 0 && insertIndex <a.length){
-        for(let i = a.length - 1; i > insertIndex; i --){
-            a[i] = a[i -1];
-        }
-        a[insertIndex] = insertNum;
+const aryInsOf = (a, insertIndex, insertNum) => {
+    if(insertIndex < 0 || insertIndex > a.length) return a.concat();
+
+    let c = new Array(a.length + 1);
+    let i = 0;
+    for(; i < insertIndex; i++){
+        c[i] = a[i];
     }
+    for(; i < a.length; i++){
+        c[i + 1] = a[i];
+    }
+    c[insertIndex] = insertNum;
+
+    return c;
 }
 
 
