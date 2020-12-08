@@ -25,10 +25,32 @@ export class Day{
     #year = 1;
     #month = 1;
     #date = 1;
-    constructor(year = 1, month = 1, date = 1){
-        this.#year = year;
-        this.#month = month;
-        this.#date = date;
+    static #mdays = [
+        [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
+        [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
+    ];
+    //y年は閏年か trueだったら閏年
+    static isLeap(y){
+        return y % 4 == 0 && y % 100 != 0 || y % 400 == 0;
+    }
+    //y年m月の日数
+    static dayOfMonth(y, m){
+        return this.#mdays[this.isLeap(y) ? 1 : 0][m - 1];
+    }
+    //調整された月
+    static adjustedMonth(m){
+        return m < 1 ? 1 : m > 12 ? 12: m;
+    }
+    //調整されたy年m月のd日(1〜28,29,30,31の範囲外を調整)
+    static adjustedDay(y, m, d){
+        if(d < 1)return 1;
+        let dMax = this.dayOfMonth(y, m);
+        return d > dMax ? dMax : d;
+    }
+    constructor(){
+        this.#year = Date.getYear();
+        this.#month = Date.getMonth();
+        this.#date = Date.getDate();
     }
     getYear(){
         return this.#year;
@@ -74,45 +96,24 @@ export class Day{
 
 export class DayTester{
     static async main(){
-        console.log('day1を入力してください。');
+        console.log('日付を入力せよ。');
         let y = await prompt('年:');
         let m = await prompt('月:');
         let d = await prompt('日:');
 
-        let day1 = new Day(y, m, d);
-        let day2 = new Day(y, m, d);
-        console.log(`day1 = ${day1}`);
-        console.log('day2をday1と同じ日付として作りました。');
-        console.log(`day2 = ${day2}`);
+        let day = new Day(y, m, d);
 
-        if(day1.equalTo(day2)){
-            console.log('day1とday2は等しいです。');
-        }else{
-            console.log('day1とday2は等しくないです。');
+        while(true){
+            console.log('[1]日付に関する情報を表示[2]日付を変更[3]他の日付との比較[4]前後の日付を求める。[5]終了：');
+            let menu = await prompt();
+            if(menu == 5)break;
+            switch (menu){
+                case 1: display(day); break;
+                case 2: change(day); break;
+                case 3: compare(day); break;
+                case 2: beforeAfter(day); break;
+            }
         }
-
-        let d1 = new Day();
-        let d2 = new Day(2020);
-        let d3 = new Day(2020, 12);
-        let d4 = new Day(2020, 12, 5);
-
-        console.log(`d1 =   ${d1}`);
-        console.log(`d2 =   ${d2}`);
-        console.log(`d3 =   ${d3}`);
-        console.log(`d4 =   ${d4}`);
-
-        let a = Day;
-        a = new Array(3);
-
-        for(let i = 0; i < a.length; i++){
-            a[i] = new Day();
-        }
-        for(let i = 0; i < a.length; i++){
-            console.log(`a[${i}] =   ${a[i]}`);
-        }
-
     }
 }
-function zeroPadding(num,length){
-    return ('0000000000' + num).slice(-length);
-}
+

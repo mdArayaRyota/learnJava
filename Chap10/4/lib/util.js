@@ -103,11 +103,11 @@ export class IdTester{
 }
 
 export class ExId{
-    #counter = 0;
-    #step = 1;
+    static #counter = 0;
+    static #step = 1;
     #id;
     constructor(){
-        this.#id = this.#counter += this.#step;
+        this.#id = ExId.#counter += ExId.#step;
     }
     getId(){
         return this.#id;
@@ -135,6 +135,16 @@ export class ExIdTester{
         let f = new ExId();
 
         console.log(`aの識別番号: ${a.getId()}`);
+        console.log(`bの識別番号: ${b.getId()}`);
+        console.log(`cの識別番号: ${c.getId()}`);
+        console.log(`dの識別番号: ${d.getId()}`);
+        console.log(`eの識別番号: ${e.getId()}`);
+        console.log(`fの識別番号: ${f.getId()}`);
 
+        let max = ExId.getMaxId();
+        let step = ExId.getStep();
+
+        console.log(`最後に与えた識別番号 = ${max}`);
+        console.log(`次回に与える識別番号 = ${max + step}`);
     }
 }
