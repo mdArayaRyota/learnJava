@@ -20,11 +20,11 @@ const question = (question) => {
 };
 
 export class Coordinate{
-    #x = 0.0;
-    #y = 0.0;
-    constructor(x, y){
-        this.#x = x || 0.0;
-        this.#y = y || 0.0;
+    #x;
+    #y;
+    constructor(x = 0.0, y = 0.0){
+        this.#x = x;
+        this.#y = y;
     }
 
     getX(){
