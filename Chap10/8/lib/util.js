@@ -1,3 +1,4 @@
+import { timeStamp } from 'console';
 import readline, { clearScreenDown } from 'readline';
 //入力処理
 const prompt = async (msg) => {
@@ -75,6 +76,9 @@ export class Day{
         this.#month += month;
         this.#date += date;
     }
+    isLeap(){
+        return isLeap(this.#year)
+    }
     dayOfWeek(){
         let y = this.#year;
         let m = this.#month;
@@ -92,9 +96,170 @@ export class Day{
         let wd = [ "日", "月", "火", "水", "木", "金", "土"];
         return (`${zeroPadding(this.#year, 4)}年${zeroPadding(this.#month, 2)}月${zeroPadding(this.#date, 2)}日(${wd[this.dayOfWeek()]})`);
     }
+    //年内の経過日数
+    dayOfYear(){
+        let days = date;
+        for(let i = 0; i < month; i++){
+            days += dayOfMonth(year, i);
+        }
+        return days;
+    }
+    //年内の残り日数
+    leftDayOfYear(){
+        return 365 + (isLeap(year) ? 1: 0) - this.dayOfYear();
+    }
+    //日付dとの前後関係を判定
+    compareTo(d){
+        return compare(this, d);
+    }
+    //２つの日付の前後関係を判定
+    static compare(d1, d2){
+        if(d1.getYear() > d2.getYear()) return 1;
+        if(d1.getYear() < d2.getYear()) return -1;
+
+        if(d1.getMonth() > d2.getMonth()) return 1;
+        if(d1.getMonth() < d2.getMonth()) return -1;
+
+        return d1.getDate() > d2.getDate() ? 1 : d1.getDate < d2.getDate ? -1 : 0;
+    }
+    //日付を１つ後ろに進める
+    succeed(){
+        let tmp = new Day(this);
+        timeStamp.succeed();
+        return tmp;
+    }
+    //翌日の日付を返す
+    succeedingDay(){
+        let temp = new Day(this);
+        temp.succeed();
+        return temp;
+    }
+    //日付を１つ前に渡す
+    precede(){
+        if(this.#date > 1){
+            this.#date--;
+        }else{
+            if(--month < 1){
+                year--;
+                month = 12;
+            }
+            this.#date = dayOfMonth(this.#year, this.#month);
+        }
+    }
+    //前日の日付を返す
+    precedingDay(){
+        let temp = new Day(this);
+        temp.precede();
+        return temp;
+    }
+    //日付をn日後ろに進める
+    succeedDays(){
+        if(n < 0){
+            this.precedingDay(-n);
+        }else if(n > 0){
+            date += n;
+            while(this.#date > dayOfMonth(year, month)){
+                if(++month > 12){
+                    year++;
+                    month = 1;
+                }
+            }
+        }
+    }
+    //前日の日付を返す
+    precedeDay(){
+        let temp = new Day(this);
+        temp.precede();
+        return tmp;
+    }
+    //n日前の日付を返す
+    before(n){
+        let temp = new Day(this);
+        temp.precedingDay(n);
+        return temp;
+    }
+
 }
 
 export class DayTester{
+
+    //日付に関する情報を表示
+    static display(day){
+        console.log(`${day}に関する情報`);
+        console.log(`閏年${day.isLeap() ? 'である':'ではない'}`);
+        console.log(`年内経過日数：${day.dayOfYear()}`);
+        console.log(`年内残り日数：${day.leftDayOfYear()}`);
+    }
+
+    //日付を変更
+    static async change(day){
+        console.log('[1]年月日を変更    [2]年を変更');
+        console.log('[3]月を変更       [4]日を変更');
+        console.log('[5]1日進める      [6]1日戻す');
+        console.log('[7]n日進める      [8]n日戻す');
+
+        let change;
+        let y = 0, m = 0, d = 0, n = 0;
+        if(change == 1 || change == 2){
+            y = await prompt('年:');
+        }
+        if(change == 1 || change == 3){
+            m = await prompt('月:');
+        }
+        if(change == 1 || change == 4){
+            d = await prompt('日:');
+        }
+        if(change == 7 || change == 8){
+            n = await prompt('何日:');
+        }
+        switch(change){
+            case 1: day.set(y, m, d);       break;
+            case 2: day.setYear(y);       break;
+            case 3: day.setMonth(m);       break;
+            case 4: day.setDate(d);       break;
+            case 5: day.succeed();          break;
+            case 6: day.precede();          break;
+            case 7: day.succeedDays();          break;
+            case 8: day.precedeDay();          break;
+        }
+        console.log(`${day}に変更されました。`);
+    }
+    static compare(day){
+        console.log('比較対象の日付を入力せよ');
+        y = await prompt('年:');
+        m = await prompt('月:');
+        d = await prompt('日:');
+
+        let d2 = new Day(y, m, d);
+
+        let comp = compareTo(day, d2);
+
+        process.stdout.write(day);
+        switch(comp){
+            case -1: console.log('のほうが前。');
+            case  1: console.log('のほうが後。');
+            case  0: console.log('と同じ。。');
+        }
+    }
+    //前後の日付を求める
+    static beforeAfter(day){
+        let type = await prompt('[1]翌日 [2]前日 [3]n日後 [4]n日前:');
+        let n = 0;
+        if(type == 3 || type == 4){
+            let n = await prompt('何日:');
+        }
+        console.log('');
+        process.stdout.write('それは');
+
+        switch(type){
+            case 1: process.stdout.write(`${day.succeedingDay()}`); break;
+            case 2: process.stdout.write(`${day.precedingDay()}`);  break;
+            case 3: process.stdout.write(`${day.after(n)}`);  break;
+            case 4: process.stdout.write(`${day.before(n)}`);  break;
+        }
+        process.stdout.write('です。');
+    }
+
     static async main(){
         console.log('日付を入力せよ。');
         let y = await prompt('年:');
@@ -117,3 +282,10 @@ export class DayTester{
     }
 }
 
+
+export class Today{
+    static main(args){
+        let today = new Day();
+        console.log(`今日は${today}です。`);
+    }
+}

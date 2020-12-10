@@ -21,57 +21,6 @@ export class ComputerPlayer extends Player{
     }
 }
 
-export class FingerFlashing3{
-    static async main(args){
-        let humanPlayer = new HumanPlayer();
-        let computerPlayer = new ComputerPlayer();
-
-        let hands = ["グー", "チョキ", "パー"];
-        console.log('');
-        let retry;
-
-        do{
-            let comp1 = computerPlayer.nextHand();
-            let comp2 = computerPlayer.nextHand();
-            let user = await humanPlayer.nextHand();
-            console.log(`あなた：${hands[user]}`);
-            console.log(`COM1：${hands[comp1]}`);
-            console.log(`COM2：${hands[comp2]}`);
-            console.log('');
-
-            let judge1 = (user - comp1 + 3) % 3;
-            let judge2 = (user - comp2 + 3) % 3;
-            console.log(judge1);
-            console.log(judge2);
-            //0:引き分け、1:負け、2:勝ち
-            if(judge1 == 2 && judge2 == 2){
-                console.log('あなたの勝ちです。');
-            }else if(judge1 == 1 && judge2 == 0){
-                console.log('COM1の勝ちです。');
-            }else if(judge1 == 1 && judge2 == 0){
-                console.log('COM2の勝ちです。');
-            }else if(judge1 == 1 && judge2 == 1){
-                console.log('COM1とCOM2の勝ちです。');
-            }else if(judge1 == 2 && judge2 == 0){
-                console.log('あなたとCOM2の勝ちです。');
-            }else if(judge1 == 0 && judge2 == 2){
-                console.log('あなたとCOM1の勝ちです。');
-            }else if(judge1 == 1 && judge2 == 0){
-                console.log('COM1の勝ちです。');
-            }else if(judge1 == 0 && judge2 == 1){
-                console.log('COM2の勝ちです。');
-            }else{
-                console.log('引き分けです。');
-            }
-
-            do{
-                retry = await prompt(`もう一度？0..いいえ、1..はい：`);
-            }while(retry != 0 && retry != 1);
-        }while(retry == 1);
-
-    }
-}
-
 export class FingerFlashing{
     static async main(args){
         let humanPlayer = new HumanPlayer();

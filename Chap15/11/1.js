@@ -1,3 +1,3 @@
-import { ComputerPlayer } from './lib/util.js';
+import { FingerFlashing3 } from './lib/util.js';
 
-ComputerPlayer.main();
+FingerFlashing3.main();

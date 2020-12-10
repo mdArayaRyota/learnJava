@@ -16,11 +16,11 @@ export class Calendar{
         if(month-- != 2){
             return mday[month];
         }
-        return mday[month] + (Calendar.isLeap(year) ? 1 : 0);
+        return mday[month] + (this.isLeap(year) ? 1 : 0);
     }
     static putCalendar(year, month){
-        let wd = (Calendar.dayOfWeek(year, month));
-        let mdays = parseInt(Calendar.monthDays(year, month));
+        let wd = (this.dayOfWeek(year, month));
+        let mdays = parseInt(this.monthDays(year, month));
 
         console.log('  日  月  火  水  木  金  土');
         console.log('----------------------------');
@@ -28,7 +28,7 @@ export class Calendar{
             process.stdout.write("    ");
         }
         for(let i = 1; i <= mdays; i++){
-            process.stdout.write(`${Calendar.spacePadding(i, 4)}`);
+            process.stdout.write(`${this.spacePadding(i, 4)}`);
             if(++wd % 7 == 0){
                 console.log('');
             }
@@ -67,12 +67,12 @@ export class Calendar{
         }
         if(argsArray.length == 2 || argsArray.length >= 4){
             console.log(`${year}年${month}のカレンダー`);
-            Calendar.putCalendar(year, month);
+            this.putCalendar(year, month);
         }else{
             console.log(`${year}年のカレンダー`);
             for(month = 1; month <= 12; month++){
                 console.log(`${month}月`);
-                Calendar.putCalendar(year, month);
+                this.putCalendar(year, month);
                 console.log('');
             }
         }
